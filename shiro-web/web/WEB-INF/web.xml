@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+    <!-- spring配置文件 -->
+
+    <context-param>
+
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:applicationContext.xml</param-value>
+    </context-param>
+    <!-- spring监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- spring mvc 配置 -->
+    <servlet>
+        <servlet-name>spring</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+        <!-- 如果这里<init-param>不配置spring-servlet配置文件的位置及名称，则默认spring加载的是/WEB-INF下面的文件名与
+         <servlet-name>spring</servlet-name>中配置的文件名 加上 "-servlet.xml"文spring-servlet.xml.xml,
+         如果需要配置成别的文件名，则必须在这里classpath:后面配置，不配置，启动容器会报错
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-servlet.xml</param-value>
+        </init-param>
+        -->
+        <!--
+        <load-on-startup>1</load-on-startup>里面正数越低启动优先级越高，但是里面是负数或者不填的时候，表明容器在该servlet被选择是采取加载
+        -->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>spring</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
